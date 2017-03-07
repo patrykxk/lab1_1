@@ -21,13 +21,10 @@ import java.util.Date;
 public class OfferItem {
 
 	private Product product = new Product();
+	private DiscountData discountData = new DiscountData();
 	private int quantity;
 	private BigDecimal totalCost;
 	private String currency;
-
-	// discount
-	private String discountCause;
-	private BigDecimal discount;
 
 	public OfferItem(String productId, BigDecimal productPrice, String productName,
 			Date productSnapshotDate, String productType, int quantity) {
@@ -44,8 +41,8 @@ public class OfferItem {
 		this.product.setProductType(productType);
 
 		this.quantity = quantity;
-		this.discount = discount;
-		this.discountCause = discountCause;
+		this.discountData.setDiscount(discount);
+		this.discountData.setDiscountCause(discountCause);
 
 		BigDecimal discountValue = new BigDecimal(0);
 		if (discount != null)
@@ -68,14 +65,6 @@ public class OfferItem {
 		return currency;
 	}
 
-	public BigDecimal getDiscount() {
-		return discount;
-	}
-
-	public String getDiscountCause() {
-		return discountCause;
-	}
-
 	public int getQuantity() {
 		return quantity;
 	}
@@ -85,7 +74,7 @@ public class OfferItem {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((discount == null) ? 0 : discount.hashCode());
+				+ ((discountData.getDiscount() == null) ? 0 : discountData.getDiscount().hashCode());
 		result = prime * result + ((product.getProductName() == null) ? 0 : product.getProductName().hashCode());
 		result = prime * result + ((product.getProductPrice() == null) ? 0 : product.getProductPrice().hashCode());
 		result = prime * result
@@ -106,10 +95,10 @@ public class OfferItem {
 		if (getClass() != obj.getClass())
 			return false;
 		OfferItem other = (OfferItem) obj;
-		if (discount == null) {
-			if (other.discount != null)
+		if (discountData.getDiscount() == null) {
+			if (other.discountData.getDiscount() != null)
 				return false;
-		} else if (!discount.equals(other.discount))
+		} else if (!discountData.getDiscount().equals(other.discountData.getDiscount()))
 			return false;
 		if (product.getProductName() == null) {
 			if (other.product.getProductName() != null)
