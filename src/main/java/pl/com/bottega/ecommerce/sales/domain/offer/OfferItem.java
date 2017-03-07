@@ -40,18 +40,18 @@ public class OfferItem {
 		this.product.setProductSnapshotDate(productSnapshotDate);
 		this.product.setProductType(productType);
 
-		this.quantity = quantity;
 		this.discountData.setDiscount(discount);
 		this.discountData.setDiscountCause(discountCause);
-
+		this.quantity = quantity;
+		this.totalCost = calculateTotalCost(discount, productPrice);
+	}
+	
+	private BigDecimal calculateTotalCost(BigDecimal discount, BigDecimal productPrice){
 		BigDecimal discountValue = new BigDecimal(0);
 		if (discount != null)
 			discountValue = discountValue.subtract(discount);
-
-		this.totalCost = productPrice
-				.multiply(new BigDecimal(quantity)).subtract(discountValue);
+		return productPrice.multiply(new BigDecimal(quantity)).subtract(discountValue);
 	}
-
 	
 	public Product getProduct(){
 		return product;
@@ -60,11 +60,9 @@ public class OfferItem {
 	public BigDecimal getTotalCost() {
 		return totalCost;
 	}
-
 	public String getTotalCostCurrency() {
 		return currency;
 	}
-
 	public int getQuantity() {
 		return quantity;
 	}
